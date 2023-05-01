@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+#Задание 1.
+if [ ' cat /etc/apt/sources.list | grep "Backports" ' ]; then
+	echo found
+else sudo add-apt-repository "deb http://deb.debian.org/debian bullseye-backports main contrib non-free"
+
+fi
+
+#sudo add-apt-repository "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted"
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
+
+#Задание 2 
+sudo apt update && sudo apt upgrade -y 
+
+#Задание 3
+sudo apt install apache2
+sudo systemctl start apache2
+sudo systemctl status apache2
+
+#Задание 4
+sudo apt install python3
+python3 -V
+
+#Задание 5
+sudo apt-get install ssh
+sudo systemctl start ssh
+sudo systemctl status ssh
+
+
+#доп.1 проверка и синхронизация времени
+sudo timedatectl set-timezone Europe/Moscow
+timedatectl
+sudo timedatectl set-ntp on
+
+#доп.2 Установка программ для работы
+sudo apt install code
+sudo apt install git
+sudo apt install ssh htop mc
+
+
+#доп.3 Установка гостевых дополнений VBOX
+sudo apt install build-essential dkms linux-headers-generic
+sudo rcvboxadd setup
+
+#доп.4 Установка кодеков
+sudo apt install ubuntu-restricted-extras
+
+#доп.5 Установка шрифтов от Windows и решение проблем с ними
+sudo dpkg -P ttf-mscorefonts-installer
+sudo wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
+sudo dpkg -i ttf-mscorefonts-installer_3.6_all.deb
+sudo fc-cache -fv && sudo fc-cache ~/.fonts
+
+#доп.6 Очистка от лишних пакетов (мусора) после установок
+sudo apt autoremove

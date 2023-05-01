@@ -1,0 +1,1 @@
+logwatch --detail high --mailto root --service vsftpd --service sshd  --range today
